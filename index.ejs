@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Harry Potter Character Explorer</title>
+
+    <!-- Connect CSS file -->
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo"> Wizarding World</div>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="#characters">Characters</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="small-title">WELCOME TO THE MAGIC WORLD</p>
+
+            <h1>Harry Potter<br>Character Explorer</h1>
+
+            <p class="hero-description">
+                Discover the witches, wizards, and magical creatures
+                from the world of Harry Potter.
+            </p>
+
+            <a href="#characters" class="explore-button">
+                Explore Characters ↓
+            </a>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section" id="characters">
+
+        <h2>Discover the Characters</h2>
+
+        <p class="section-description">
+            Search for your favorite character from the Wizarding World.
+        </p>
+
+        <form action="/" method="GET" class="search-form">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search character name..."
+                value="<%= search %>"
+            >
+
+            <button type="submit">Search</button>
+        </form>
+
+        <% if (typeof error !== "undefined" && error) { %>
+            <div class="error-message">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <% if (!error) { %>
+            <p class="total-count">
+                Showing <%= characters.length %> characters
+                from <%= total %> total characters
+            </p>
+        <% } %>
+
+        <!-- Character Cards -->
+        <div class="character-grid">
+
+            <% characters.forEach(function(character) { %>
+
+                <div class="character-card">
+
+                    <div class="character-image">
+
+                        <% if (character.image) { %>
+
+                            <img
+                                src="<%= character.image %>"
+                                alt="<%= character.name %>"
+                                loading="lazy"
+                            >
+
+                        <% } else { %>
+
+                            <div class="no-image">
+                                ⚡
+                                <span>No Image Available</span>
+                            </div>
+
+                        <% } %>
+
+                    </div>
+
+                    <div class="character-info">
+
+                        <h3><%= character.name %></h3>
+
+                        <p>
+                            <strong>House:</strong>
+                            <%= character.house || "Unknown" %>
+                        </p>
+
+                        <p>
+                            <strong>Actor:</strong>
+                            <%= character.actor || "Unknown" %>
+                        </p>
+
+                        <p>
+                            <strong>Species:</strong>
+                            <%= character.species || "Unknown" %>
+                        </p>
+
+                        <p>
+                            <strong>Wizard:</strong>
+                            <%= character.wizard ? "Yes" : "No" %>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+        <!-- No Results -->
+        <% if (characters.length === 0 && !error) { %>
+
+            <div class="no-results">
+                <h3>No characters found 🪄</h3>
+                <p>Try searching for another name.</p>
+            </div>
+
+        <% } %>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>⚡ Harry Potter Character Explorer</p>
+        <p>Created using Node.js, Express, Axios, EJS, and Harry Potter API.</p>
+        <p>Student API Integration Project | 2026</p>
+    </footer>
+
+</body>
+</html>
